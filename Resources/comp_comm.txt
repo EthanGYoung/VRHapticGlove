@@ -1,0 +1,20 @@
+https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-an-arduino/
+
+https://www.instructables.com/id/Aduino-IC-2-Way-Communication/
+
+https://www.deviceplus.com/how-tos/arduino-guide/arduino-communication-protocols-tutorial/
+
+Says that arduino can comm using USB with serial library and looks like a USBtty from computer
+http://forum.arduino.cc/index.php?topic=17006.0
+
+Video on how to communicate via C#, which is what we want to do on computer side
+https://www.youtube.com/watch?v=vHeG3Gt6STE&vl=en
+
+Comp to Arduino example
+https://www.meccanismocomplesso.org/en/arduino-tutorial-serial-data-actuator/
+
+Why I2C might not be best option
+http://forum.arduino.cc/index.php?topic=157612.0
+
+Great article with code on implementing 2-way serial comm and how to generate a protocol (LOOK AT THIS ONE!!)
+https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-p5js/

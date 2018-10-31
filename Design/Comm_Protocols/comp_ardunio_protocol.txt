@@ -1,0 +1,56 @@
+Ideas:
+
+comp (master) - Arduino (slave)
+
+Do some sort of encapsulation and decapsulation
+	- Allows us to process both request kinematics and send haptics in same msg
+	- sent: {Header for specific request { Header for kinematics request } }
+		- This way the arduino can service both requests sequentially
+
+What is max size message?
+How long should timeout be for comp request before sending another?
+
+Case 0: Initialization of glove communication
+	- Need 2 way handshake to confirm connection working
+		- Comp sends data msg to arduino and waits for response
+	- Discovery of available controls
+		- Could be useful for modularity (discover has access to tactile and/or force haptics)
+
+Case 1: Computer wants orientation of sensors for kinematics
+	- Comp Sent
+		- Sets flag for kinematics request
+		- Indicates addresses of sensors needed
+ 	- Arduino Sent
+		- Sets flag for kinematics response
+		- Payload contains data in specified ordering
+	- Comp Sent
+		- Confirmation? Maybe not enough time between requests
+		- Could keep track of number of requests without recieving Ard to monitor health of connection
+
+Case 2: Computer wants to send instructions to haptic control
+	- Comp Sent
+		- Sets flag for haptic control
+		- Payload indicates sensor addresses with specified values for each
+			- Potentially have value translation to abstract the process for the computer game
+	- Arduino Sent
+		- Sets flag for haptic response
+		- Whether successful or not (Maybe no completely necessary)
+			- Could judge from kinematic response msgs
+
+Overall:
+	- Comp sends {Kinematic Request { haptic controls } }
+	- Arduino responds with { { Kinematic Data } Success of Previous Haptic control }
+		- Comp waits for response
+		- If too long without response, will send another control msg
+			- Improves latency of system
+
+Message Format:
+- Comp sent:
+	- Kinematic Request Header - Fixed size
+		- Size of payload (Payload is haptic controls + controls header) 
+		- If payload present (Haptic controls sent)
+		- Addresses of requested sensor data
+		- Type of sensor requested (Could be stated in addresses)
+	- Haptic Controls Header
+		- Size of payload
+		- 
