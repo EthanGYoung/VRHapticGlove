@@ -4,17 +4,27 @@ comp (master) - Arduino (slave)
 
 Do some sort of encapsulation and decapsulation
 	- Allows us to process both request kinematics and send haptics in same msg
-	- sent: {Header for specific request { Header for kinematics request } }
+	- sent: {Header for specific request { Header for controls { payload  } }
 		- This way the arduino can service both requests sequentially
+		- Get info on which module to send control to (Addresses)
+			- So, only need to check header, decapsulate, then forward on to correct mod
+
+Flow control?
+- Ard only sends when told to do so
+- Comp only asks for more when is done reading previous or at certain level left
 
 What is max size message?
 How long should timeout be for comp request before sending another?
 
 Case 0: Initialization of glove communication
-	- Need 2 way handshake to confirm connection working
+	- Need 2 way handshake to confirm connection working (Establish a connection)
 		- Comp sends data msg to arduino and waits for response
+	
 	- Discovery of available controls
 		- Could be useful for modularity (discover has access to tactile and/or force haptics)
+		- Ard sends msg to each possible mod, then mod sends back msg with its hardcoded sensors/config
+		- Ard can build out a map/table of all the possible sensors at its disposal
+		- Ard then sends this map to the comp, so it can be used in game kinematics/control
 
 Case 1: Computer wants orientation of sensors for kinematics
 	- Comp Sent
@@ -53,4 +63,20 @@ Message Format:
 		- Type of sensor requested (Could be stated in addresses)
 	- Haptic Controls Header
 		- Size of payload
-		- 
+		-
+
+Methods
+- Serialize
+	- Encode the message to be sent
+- Deserialize
+	- Decode messages recieved
+
+Communication with Teensy
+- Idea: have teensy for each "module" (Force, tactile, flex, etc..)
+
+- Is it possible to communicate with each individually?
+	- They would need to share the input buffer for serial, I think..
+		- https://arduino.stackexchange.com/questions/9709/how-to-have-an-arduino-communicate-with-3-other-arduinos
+	- Could do I2C for comm between ard and Teensys'
+		- https://www.instructables.com/id/I2C-between-Arduinos/
+		- Ard is master, teensys are the slaves
