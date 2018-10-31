@@ -54,6 +54,9 @@ Overall:
 		- If too long without response, will send another control msg
 			- Improves latency of system
 
+		- Possibly Arduino keeps sending kinematic data
+			- AWK field with sequence number of last recieved, then computer can track how long current latency is
+
 Message Format:
 - Comp sent:
 	- Kinematic Request Header - Fixed size

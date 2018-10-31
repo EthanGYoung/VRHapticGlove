@@ -18,3 +18,6 @@ http://forum.arduino.cc/index.php?topic=157612.0
 
 Great article with code on implementing 2-way serial comm and how to generate a protocol (LOOK AT THIS ONE!!)
 https://itp.nyu.edu/physcomp/labs/labs-serial-communication/two-way-duplex-serial-communication-using-p5js/
+
+Coding for Teensy with arduino IDE
+https://www.pjrc.com/teensy/tutorial.html
